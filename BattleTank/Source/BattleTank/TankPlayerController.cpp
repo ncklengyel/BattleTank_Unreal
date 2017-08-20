@@ -59,8 +59,11 @@ void ATankPlayerController::AimForCrosshair()
 bool ATankPlayerController::GetSightRayHitLocation(FVector & HitLocation) const
 {
 	HitLocation = FVector(1.0);
+
 	int32 ViewportSizeX, ViewportSizeY;
-	GetViewportSize(ViewportSizeX, ViewportSizeY);
+
+	GetViewportSize(ViewportSizeX, ViewportSizeY)
+		;
 	auto ScreenLocation = FVector2D(ViewportSizeX*CrossHairXLocation, ViewportSizeY*CrossHairYLocation);
 	FVector LookDirection;
 	
