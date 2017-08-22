@@ -3,11 +3,11 @@
 #pragma once
 
 #include "GameFramework/Pawn.h"
-#include "Public/TankAimingComponent.h"
 #include "Tank.generated.h"
 //#include "Public/TankBarrel.h"
 
 class UTankBarrel;
+class UTankAimingComponent;
 
 UCLASS()
 class BATTLETANK_API ATank : public APawn
