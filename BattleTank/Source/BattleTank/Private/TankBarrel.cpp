@@ -3,10 +3,12 @@
 #include "BattleTank.h"
 #include "TankBarrel.h"
 
-void UTankBarrel::Elevate(float DegreesPerSec)
+void UTankBarrel::Elevate(float RelativeSpeed)
 {
 
-	UE_LOG(LogTemp, Warning, TEXT("speedElevate: %f"), DegreesPerSec);
+	auto Time = GetWorld()->GetTimeSeconds();
+
+	UE_LOG(LogTemp, Warning, TEXT("Time: %f speedElevate: %f"), Time, RelativeSpeed);
 
 
 }
