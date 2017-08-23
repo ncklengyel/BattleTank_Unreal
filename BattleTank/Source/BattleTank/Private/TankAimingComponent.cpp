@@ -2,6 +2,7 @@
 
 #include "BattleTank.h"
 #include "TankBarrel.h"
+#include "Turret.h"
 #include "TankAimingComponent.h"
 
 
@@ -11,7 +12,7 @@ UTankAimingComponent::UTankAimingComponent()
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
 	
-	PrimaryComponentTick.bCanEverTick = true;//Should this Tick???
+	PrimaryComponentTick.bCanEverTick = false;
 
 	// ...
 }
@@ -45,9 +46,18 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 	
 
 
-	if (!Barrel) { 
+	if (!Barrel) 
+	{ 
 		UE_LOG(LogTemp, Warning, TEXT("No Barrel found in TankAimingComponent"));
 		return;
+	}
+	else if (!Turret)
+	{
+
+		UE_LOG(LogTemp, Warning, TEXT("No Turret found in TankAimingComponent"));
+		return;
+
+
 	}
 
 	FVector OutLaunchVelocity;
@@ -63,8 +73,10 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 	{
 
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
+		//auto AimRotator = HitLocation.Rotation();
 
 		MoveBarrelTowards(AimDirection);
+		MoveTurretTowards(OutLaunchVelocity);
 
 		UE_LOG(LogTemp, Warning, TEXT("aiming at %s"), *AimDirection.ToString());
 
@@ -88,6 +100,12 @@ void UTankAimingComponent::SetBarrelReference(UTankBarrel * BarrelToSet)
 
 }
 
+void UTankAimingComponent::SetTurretReference(UTurret * TurretToSet)
+{
+	Turret = TurretToSet;
+
+}
+
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 {
 
@@ -96,6 +114,20 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 	auto DeltaRotator = AimRotator - BarrelRotation;
 
 	Barrel->Elevate(DeltaRotator.Pitch);
+
+
+}
+
+void UTankAimingComponent::MoveTurretTowards(FVector AimDirection)
+{
+
+
+	//auto BarrelRotation = Barrel->GetForwardVector().Rotation();
+	auto BarrelRotation = Barrel->GetForwardVector().Rotation(); //TODO understand this code
+	auto AimRotator = AimDirection.Rotation();
+	auto DeltaRotator = AimRotator - BarrelRotation;
+
+	Turret->Rotate(DeltaRotator.Yaw);
 
 
 }
