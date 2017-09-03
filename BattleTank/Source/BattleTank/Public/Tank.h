@@ -19,6 +19,9 @@ public:
 	
 	void AimAt(FVector HitLocation);
 
+	UFUNCTION(BlueprintCallable, Category = Firing)
+	void Fire();
+
 protected:
 	
 	// Called when the game starts or when spawned

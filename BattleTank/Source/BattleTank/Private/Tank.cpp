@@ -18,6 +18,12 @@ ATank::ATank()
 
 }
 
+void ATank::Fire()
+{
+	UE_LOG(LogTemp, Warning, TEXT("%s is Firing!"), *this->GetName());
+
+}
+
 // Called when the game starts or when spawned
 void ATank::BeginPlay()
 {
