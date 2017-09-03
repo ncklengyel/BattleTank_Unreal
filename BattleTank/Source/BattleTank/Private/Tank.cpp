@@ -23,17 +23,18 @@ ATank::ATank()
 
 void ATank::Fire()
 {
+	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
 
-	
-
-	if (Barrel) 
+	if (Barrel && isReloaded) 
 	{
 		FVector BarrelTipLocation = Barrel->GetSocketLocation("BarrelTip");
 		FRotator BarrelTipRotator = Barrel->GetSocketRotation("BarrelTip");
 		
 		//Spawn Projectile
+	
 		auto Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint, BarrelTipLocation, BarrelTipRotator);
 		Projectile->LaunchProjectile(LaunchSpeed);
+		LastFireTime = FPlatformTime::Seconds();
 
 	}
 	else 
