@@ -2,7 +2,10 @@
 
 #include "BattleTank.h"
 #include "Public/TankAimingComponent.h"
+#include "Public/TankBarrel.h"
+#include "Public/Projectile.h"
 #include "Public/Tank.h"
+
 
 
 
@@ -20,7 +23,20 @@ ATank::ATank()
 
 void ATank::Fire()
 {
-	UE_LOG(LogTemp, Warning, TEXT("%s is Firing!"), *this->GetName());
+
+	
+
+	if (Barrel) 
+	{
+		FVector BarrelTipLocation = Barrel->GetSocketLocation("BarrelTip");
+		FRotator BarrelTipRotator = Barrel->GetSocketRotation("BarrelTip");
+		//Spawn Projectile
+		GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint, BarrelTipLocation, BarrelTipRotator);
+	}
+	else 
+	{
+		UE_LOG(LogTemp, Warning, TEXT("%s : nullptr on Barrel (Tank.cpp)"), *this->GetName());
+	}
 
 }
 
@@ -43,6 +59,7 @@ void ATank::SetBarrelReference(UTankBarrel * BarrelToSet)
 {
 
 	TankAimingComponent->SetBarrelReference(BarrelToSet);
+	Barrel = BarrelToSet;
 
 }
 
