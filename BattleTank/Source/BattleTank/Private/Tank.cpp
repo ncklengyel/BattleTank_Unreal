@@ -25,7 +25,7 @@ void ATank::Fire()
 {
 	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
 
-	if (Barrel && isReloaded) 
+	if (Barrel && isReloaded && CanFire)
 	{
 		FVector BarrelTipLocation = Barrel->GetSocketLocation("BarrelTip");
 		FRotator BarrelTipRotator = Barrel->GetSocketRotation("BarrelTip");

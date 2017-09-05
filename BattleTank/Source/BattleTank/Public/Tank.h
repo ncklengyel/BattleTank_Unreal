@@ -50,6 +50,9 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = Firing)
 	float ReloadTimeInSeconds = 3;
 
+	UPROPERTY(EditDefaultsOnly, Category = Firing)
+	bool CanFire = true;
+
 	UPROPERTY(EditDefaultsOnly, Category = Setup)
 	TSubclassOf<AProjectile> ProjectileBlueprint;
 
