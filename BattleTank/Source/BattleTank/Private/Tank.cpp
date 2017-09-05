@@ -31,16 +31,17 @@ void ATank::Fire()
 		FRotator BarrelTipRotator = Barrel->GetSocketRotation("BarrelTip");
 		
 		//Spawn Projectile
-	
 		auto Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint, BarrelTipLocation, BarrelTipRotator);
 		Projectile->LaunchProjectile(LaunchSpeed);
 		LastFireTime = FPlatformTime::Seconds();
 
 	}
-	else 
+	else if (!Barrel)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("%s : nullptr on Barrel (Tank.cpp)"), *this->GetName());
+		UE_LOG(LogTemp, Warning, TEXT("Barrel is nullptr (Tank.cpp)"));
+
 	}
+
 
 }
 

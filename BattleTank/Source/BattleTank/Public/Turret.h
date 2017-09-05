@@ -16,7 +16,7 @@ class BATTLETANK_API UTurret : public UStaticMeshComponent
 
 private:
 
-	UPROPERTY(EditAnywhere, Category = Setup)
+	UPROPERTY(EditDefaultsOnly, Category = Setup)
 	float MaxDegreesPerSecond = 25;
 
 public:
